@@ -1,5 +1,7 @@
 package csci490.cofc.edu.lab6mainar;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -13,6 +15,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Parcelable mLastLocation;
+    private LatLng currentPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        // Get the Intent that started this activity and extract the string
+        Intent intent = getIntent();
+        mLastLocation = intent.getExtras().getParcelable("Location");
+        currentPos = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
     }
 
 
